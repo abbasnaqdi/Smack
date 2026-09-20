@@ -179,7 +179,8 @@ public abstract class OmemoStore<T_IdKeyPair, T_IdKey, T_PreKey, T_SigPreKey, T_
 
         TreeMap<Integer, T_SigPreKey> signedPreKeys = loadOmemoSignedPreKeys(userDevice);
 
-        for (int i = 0; i < signedPreKeys.keySet().size() - OmemoConfiguration.getMaxNumberOfStoredSignedPreKeys(); i++) {
+        int excess = signedPreKeys.size() - OmemoConfiguration.getMaxNumberOfStoredSignedPreKeys();
+        for (int i = 0; i < excess; i++) {
             int keyId = signedPreKeys.firstKey();
             LOGGER.log(Level.INFO, "Remove signedPreKey " + keyId + ".");
             removeOmemoSignedPreKey(userDevice, keyId);
